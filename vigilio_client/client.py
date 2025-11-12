@@ -14,6 +14,7 @@ class VigilioClient:
         grpc_conf = settings.VIGILIO_GRPC
         self.host = grpc_conf.get("HOST", "localhost")
         self.port = grpc_conf.get("PORT", 50051)
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         self.cert_file = grpc_conf.get("CERT_FILE") or os.path.join(base_dir, "vigilio_cert", "fullchain.pem")
         self._channel = None
         self._stub = None
