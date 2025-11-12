@@ -1,3 +1,4 @@
+import os
 import grpc
 from .vigilio_pb2_grpc import VigilioServiceStub
 from .vigilio_pb2 import (
