@@ -13,6 +13,8 @@ from .vigilio_pb2 import (
     
 )
 from django.conf import settings
+from google.protobuf.json_format import MessageToDict
+
 
 class VigilioClient:
     def __init__(self):
