@@ -37,21 +37,6 @@ class VigilioServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetDividends = channel.unary_unary(
-                '/vigilio.VigilioService/GetDividends',
-                request_serializer=vigilio__pb2.GetDividendsRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.GetDividendsResponse.FromString,
-                _registered_method=True)
-        self.GetNavs = channel.unary_unary(
-                '/vigilio.VigilioService/GetNavs',
-                request_serializer=vigilio__pb2.GetNavsRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.GetNavsResponse.FromString,
-                _registered_method=True)
-        self.GetReturns = channel.unary_unary(
-                '/vigilio.VigilioService/GetReturns',
-                request_serializer=vigilio__pb2.GetReturnsRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.GetReturnsResponse.FromString,
-                _registered_method=True)
         self.GetShareHolderSummary = channel.unary_unary(
                 '/vigilio.VigilioService/GetShareHolderSummary',
                 request_serializer=vigilio__pb2.ShareHolderSummaryRequest.SerializeToString,
@@ -62,6 +47,11 @@ class VigilioServiceStub(object):
                 request_serializer=vigilio__pb2.ShareHolderDetailRequest.SerializeToString,
                 response_deserializer=vigilio__pb2.ShareHolderDetailResponse.FromString,
                 _registered_method=True)
+        self.GetFundTypes = channel.unary_unary(
+                '/vigilio.VigilioService/GetFundTypes',
+                request_serializer=vigilio__pb2.GetFundTypesRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetFundTypesResponse.FromString,
+                _registered_method=True)
 
 
 class VigilioServiceServicer(object):
@@ -69,24 +59,6 @@ class VigilioServiceServicer(object):
     Service definition
     -----------------------------
     """
-
-    def GetDividends(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetNavs(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetReturns(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def GetShareHolderSummary(self, request, context):
         """Shareholder endpoints
@@ -101,24 +73,15 @@ class VigilioServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetFundTypes(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VigilioServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetDividends': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetDividends,
-                    request_deserializer=vigilio__pb2.GetDividendsRequest.FromString,
-                    response_serializer=vigilio__pb2.GetDividendsResponse.SerializeToString,
-            ),
-            'GetNavs': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetNavs,
-                    request_deserializer=vigilio__pb2.GetNavsRequest.FromString,
-                    response_serializer=vigilio__pb2.GetNavsResponse.SerializeToString,
-            ),
-            'GetReturns': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetReturns,
-                    request_deserializer=vigilio__pb2.GetReturnsRequest.FromString,
-                    response_serializer=vigilio__pb2.GetReturnsResponse.SerializeToString,
-            ),
             'GetShareHolderSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.GetShareHolderSummary,
                     request_deserializer=vigilio__pb2.ShareHolderSummaryRequest.FromString,
@@ -128,6 +91,11 @@ def add_VigilioServiceServicer_to_server(servicer, server):
                     servicer.GetShareHolderDetail,
                     request_deserializer=vigilio__pb2.ShareHolderDetailRequest.FromString,
                     response_serializer=vigilio__pb2.ShareHolderDetailResponse.SerializeToString,
+            ),
+            'GetFundTypes': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFundTypes,
+                    request_deserializer=vigilio__pb2.GetFundTypesRequest.FromString,
+                    response_serializer=vigilio__pb2.GetFundTypesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -142,87 +110,6 @@ class VigilioService(object):
     Service definition
     -----------------------------
     """
-
-    @staticmethod
-    def GetDividends(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/vigilio.VigilioService/GetDividends',
-            vigilio__pb2.GetDividendsRequest.SerializeToString,
-            vigilio__pb2.GetDividendsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def GetNavs(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/vigilio.VigilioService/GetNavs',
-            vigilio__pb2.GetNavsRequest.SerializeToString,
-            vigilio__pb2.GetNavsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def GetReturns(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/vigilio.VigilioService/GetReturns',
-            vigilio__pb2.GetReturnsRequest.SerializeToString,
-            vigilio__pb2.GetReturnsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def GetShareHolderSummary(request,
@@ -268,6 +155,33 @@ class VigilioService(object):
             '/vigilio.VigilioService/GetShareHolderDetail',
             vigilio__pb2.ShareHolderDetailRequest.SerializeToString,
             vigilio__pb2.ShareHolderDetailResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFundTypes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/GetFundTypes',
+            vigilio__pb2.GetFundTypesRequest.SerializeToString,
+            vigilio__pb2.GetFundTypesResponse.FromString,
             options,
             channel_credentials,
             insecure,
