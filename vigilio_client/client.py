@@ -8,7 +8,8 @@ from .vigilio_pb2 import (
     ShareHolderExcelRequest,
     ShareHolderChartRequest,
     ShareHolderAnalyzeRequest,
-    ShareHolderSummaryExcelRequest
+    ShareHolderSummaryExcelRequest,
+    ShareHolderListRequest
 
     
 )
@@ -70,6 +71,26 @@ class VigilioClient:
     def get_shareholder_detail(self, shareholder_id, fund=None):
         req = ShareHolderDetailRequest(shareholder_id=shareholder_id, fund=fund or "")
         return self._stub.GetShareHolderDetail(req)
+
+
+    def get_shareholder_detail_json(self, shareholder_id):
+        resp = self.get_shareholder_detail(shareholder_id)
+        result = {
+            "shareholder_name": resp.shareholder_name,
+            "share_holder_histories": [
+                {
+                    "fund_id": h.fund_id,
+                    "fund": h.fund,
+                    "fund_type": h.fund_type,
+                    "share_count": h.share_count,
+                    "value": h.value,
+                    "pct_of_shares": h.pct_of_shares,
+                    "date": h.date
+                }
+                for h in resp.share_holder_histories
+            ]
+        }
+        return result
 
     def export_shareholder_excel(self, shareholder_id):
         req = ShareHolderExcelRequest(shareholder_id=shareholder_id)
