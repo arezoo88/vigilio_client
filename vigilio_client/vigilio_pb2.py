@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rvigilio.proto\x12\x07vigilio\"L\n\x19ShareHolderSummaryRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x11\n\tfund_type\x18\x02 \x01(\t\x12\x0e\n\x06search\x18\x03 \x01(\t\"q\n\x12ShareHolderSummary\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnum_funds\x18\x03 \x01(\x05\x12\x19\n\x11total_share_count\x18\x04 \x01(\x03\x12\x13\n\x0btotal_value\x18\x05 \x01(\x01\"O\n\x1aShareHolderSummaryResponse\x12\x31\n\x0cshareholders\x18\x01 \x03(\x0b\x32\x1b.vigilio.ShareHolderSummary\"S\n\x18ShareHolderDetailRequest\x12\x16\n\x0eshareholder_id\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\t\x12\x11\n\tfund_type\x18\x03 \x01(\t\"\x87\x01\n\x16ShareHolderFundHistory\x12\x11\n\tfund_name\x18\x01 \x01(\t\x12\x11\n\tfund_type\x18\x02 \x01(\t\x12\x13\n\x0bshare_count\x18\x03 \x01(\x03\x12\r\n\x05value\x18\x04 \x01(\x01\x12\x15\n\rpct_of_shares\x18\x05 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x06 \x01(\t\"v\n\x19ShareHolderDetailResponse\x12\x18\n\x10shareholder_name\x18\x01 \x01(\t\x12?\n\x16share_holder_histories\x18\x02 \x03(\x0b\x32\x1f.vigilio.ShareHolderFundHistory\"\x15\n\x13GetFundTypesRequest\"$\n\x08\x46undType\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"=\n\x14GetFundTypesResponse\x12%\n\nfund_types\x18\x01 \x03(\x0b\x32\x11.vigilio.FundType2\x9e\x02\n\x0eVigilioService\x12`\n\x15GetShareHolderSummary\x12\".vigilio.ShareHolderSummaryRequest\x1a#.vigilio.ShareHolderSummaryResponse\x12]\n\x14GetShareHolderDetail\x12!.vigilio.ShareHolderDetailRequest\x1a\".vigilio.ShareHolderDetailResponse\x12K\n\x0cGetFundTypes\x12\x1c.vigilio.GetFundTypesRequest\x1a\x1d.vigilio.GetFundTypesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rvigilio.proto\x12\x07vigilio\"<\n\x19ShareHolderSummaryRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x11\n\tfund_type\x18\x02 \x01(\t\"O\n\x1aShareHolderSummaryResponse\x12\x31\n\x0cshareholders\x18\x01 \x03(\x0b\x32\x1b.vigilio.ShareHolderSummary\"q\n\x12ShareHolderSummary\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnum_funds\x18\x03 \x01(\x05\x12\x19\n\x11total_share_count\x18\x04 \x01(\x03\x12\x13\n\x0btotal_value\x18\x05 \x01(\x01\"A\n\x1eShareHolderSummaryExcelRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x11\n\tfund_type\x18\x02 \x01(\t\"H\n\x1fShareHolderSummaryExcelResponse\x12\x12\n\nexcel_file\x18\x01 \x01(\x0c\x12\x11\n\tfile_name\x18\x02 \x01(\t\"-\n\x11ShareHolderByName\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"+\n\x16ShareHolderListRequest\x12\x11\n\tfund_type\x18\x01 \x01(\t\"K\n\x17ShareHolderListResponse\x12\x30\n\x0cshareholders\x18\x01 \x03(\x0b\x32\x1a.vigilio.ShareHolderByName\"\x93\x01\n\x16ShareHolderFundHistory\x12\x0f\n\x07\x66und_id\x18\x01 \x01(\t\x12\x0c\n\x04\x66und\x18\x02 \x01(\t\x12\x11\n\tfund_type\x18\x03 \x01(\t\x12\x13\n\x0bshare_count\x18\x04 \x01(\x03\x12\r\n\x05value\x18\x05 \x01(\x01\x12\x15\n\rpct_of_shares\x18\x06 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x07 \x01(\t\"@\n\x18ShareHolderDetailRequest\x12\x16\n\x0eshareholder_id\x18\x01 \x01(\x05\x12\x0c\n\x04\x66und\x18\x02 \x01(\t\"v\n\x19ShareHolderDetailResponse\x12\x18\n\x10shareholder_name\x18\x01 \x01(\t\x12?\n\x16share_holder_histories\x18\x02 \x03(\x0b\x32\x1f.vigilio.ShareHolderFundHistory\"1\n\x17ShareHolderExcelRequest\x12\x16\n\x0eshareholder_id\x18\x01 \x01(\x05\"A\n\x18ShareHolderExcelResponse\x12\x12\n\nexcel_file\x18\x01 \x01(\x0c\x12\x11\n\tfile_name\x18\x02 \x01(\t\"g\n\x17ShareHolderChartRequest\x12\x16\n\x0eshareholder_id\x18\x01 \x01(\x05\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x12\n\nstart_date\x18\x03 \x01(\t\x12\x10\n\x08\x65nd_date\x18\x04 \x01(\t\"O\n\x18ShareHolderChartResponse\x12\x33\n\nchart_data\x18\x01 \x03(\x0b\x32\x1f.vigilio.ShareHolderFundHistory\"g\n\x19ShareHolderAnalyzeRequest\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x12\n\nstart_date\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_date\x18\x03 \x01(\t\x12\x14\n\x0c\x65xport_excel\x18\x04 \x01(\x08\"z\n\x1aShareHolderAnalyzeResponse\x12\x35\n\x0c\x61nalyze_data\x18\x01 \x03(\x0b\x32\x1f.vigilio.ShareHolderFundHistory\x12\x12\n\nexcel_file\x18\x02 \x01(\x0c\x12\x11\n\tfile_name\x18\x03 \x01(\t\"\x15\n\x13GetFundTypesRequest\"$\n\x08\x46undType\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"=\n\x14GetFundTypesResponse\x12%\n\nfund_types\x18\x01 \x03(\x0b\x32\x11.vigilio.FundType2\x87\x06\n\x0eVigilioService\x12K\n\x0cGetFundTypes\x12\x1c.vigilio.GetFundTypesRequest\x1a\x1d.vigilio.GetFundTypesResponse\x12U\n\x10ListShareHolders\x12\x1f.vigilio.ShareHolderListRequest\x1a .vigilio.ShareHolderListResponse\x12]\n\x14GetShareHolderDetail\x12!.vigilio.ShareHolderDetailRequest\x1a\".vigilio.ShareHolderDetailResponse\x12]\n\x16\x45xportShareHolderExcel\x12 .vigilio.ShareHolderExcelRequest\x1a!.vigilio.ShareHolderExcelResponse\x12^\n\x17GetShareHolderChartData\x12 .vigilio.ShareHolderChartRequest\x1a!.vigilio.ShareHolderChartResponse\x12]\n\x12\x41nalyzeShareHolder\x12\".vigilio.ShareHolderAnalyzeRequest\x1a#.vigilio.ShareHolderAnalyzeResponse\x12`\n\x15GetShareHolderSummary\x12\".vigilio.ShareHolderSummaryRequest\x1a#.vigilio.ShareHolderSummaryResponse\x12r\n\x1d\x45xportShareHolderSummaryExcel\x12\'.vigilio.ShareHolderSummaryExcelRequest\x1a(.vigilio.ShareHolderSummaryExcelResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,23 +32,45 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'vigilio_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_SHAREHOLDERSUMMARYREQUEST']._serialized_start=26
-  _globals['_SHAREHOLDERSUMMARYREQUEST']._serialized_end=102
-  _globals['_SHAREHOLDERSUMMARY']._serialized_start=104
-  _globals['_SHAREHOLDERSUMMARY']._serialized_end=217
-  _globals['_SHAREHOLDERSUMMARYRESPONSE']._serialized_start=219
-  _globals['_SHAREHOLDERSUMMARYRESPONSE']._serialized_end=298
-  _globals['_SHAREHOLDERDETAILREQUEST']._serialized_start=300
-  _globals['_SHAREHOLDERDETAILREQUEST']._serialized_end=383
-  _globals['_SHAREHOLDERFUNDHISTORY']._serialized_start=386
-  _globals['_SHAREHOLDERFUNDHISTORY']._serialized_end=521
-  _globals['_SHAREHOLDERDETAILRESPONSE']._serialized_start=523
-  _globals['_SHAREHOLDERDETAILRESPONSE']._serialized_end=641
-  _globals['_GETFUNDTYPESREQUEST']._serialized_start=643
-  _globals['_GETFUNDTYPESREQUEST']._serialized_end=664
-  _globals['_FUNDTYPE']._serialized_start=666
-  _globals['_FUNDTYPE']._serialized_end=702
-  _globals['_GETFUNDTYPESRESPONSE']._serialized_start=704
-  _globals['_GETFUNDTYPESRESPONSE']._serialized_end=765
-  _globals['_VIGILIOSERVICE']._serialized_start=768
-  _globals['_VIGILIOSERVICE']._serialized_end=1054
+  _globals['_SHAREHOLDERSUMMARYREQUEST']._serialized_end=86
+  _globals['_SHAREHOLDERSUMMARYRESPONSE']._serialized_start=88
+  _globals['_SHAREHOLDERSUMMARYRESPONSE']._serialized_end=167
+  _globals['_SHAREHOLDERSUMMARY']._serialized_start=169
+  _globals['_SHAREHOLDERSUMMARY']._serialized_end=282
+  _globals['_SHAREHOLDERSUMMARYEXCELREQUEST']._serialized_start=284
+  _globals['_SHAREHOLDERSUMMARYEXCELREQUEST']._serialized_end=349
+  _globals['_SHAREHOLDERSUMMARYEXCELRESPONSE']._serialized_start=351
+  _globals['_SHAREHOLDERSUMMARYEXCELRESPONSE']._serialized_end=423
+  _globals['_SHAREHOLDERBYNAME']._serialized_start=425
+  _globals['_SHAREHOLDERBYNAME']._serialized_end=470
+  _globals['_SHAREHOLDERLISTREQUEST']._serialized_start=472
+  _globals['_SHAREHOLDERLISTREQUEST']._serialized_end=515
+  _globals['_SHAREHOLDERLISTRESPONSE']._serialized_start=517
+  _globals['_SHAREHOLDERLISTRESPONSE']._serialized_end=592
+  _globals['_SHAREHOLDERFUNDHISTORY']._serialized_start=595
+  _globals['_SHAREHOLDERFUNDHISTORY']._serialized_end=742
+  _globals['_SHAREHOLDERDETAILREQUEST']._serialized_start=744
+  _globals['_SHAREHOLDERDETAILREQUEST']._serialized_end=808
+  _globals['_SHAREHOLDERDETAILRESPONSE']._serialized_start=810
+  _globals['_SHAREHOLDERDETAILRESPONSE']._serialized_end=928
+  _globals['_SHAREHOLDEREXCELREQUEST']._serialized_start=930
+  _globals['_SHAREHOLDEREXCELREQUEST']._serialized_end=979
+  _globals['_SHAREHOLDEREXCELRESPONSE']._serialized_start=981
+  _globals['_SHAREHOLDEREXCELRESPONSE']._serialized_end=1046
+  _globals['_SHAREHOLDERCHARTREQUEST']._serialized_start=1048
+  _globals['_SHAREHOLDERCHARTREQUEST']._serialized_end=1151
+  _globals['_SHAREHOLDERCHARTRESPONSE']._serialized_start=1153
+  _globals['_SHAREHOLDERCHARTRESPONSE']._serialized_end=1232
+  _globals['_SHAREHOLDERANALYZEREQUEST']._serialized_start=1234
+  _globals['_SHAREHOLDERANALYZEREQUEST']._serialized_end=1337
+  _globals['_SHAREHOLDERANALYZERESPONSE']._serialized_start=1339
+  _globals['_SHAREHOLDERANALYZERESPONSE']._serialized_end=1461
+  _globals['_GETFUNDTYPESREQUEST']._serialized_start=1463
+  _globals['_GETFUNDTYPESREQUEST']._serialized_end=1484
+  _globals['_FUNDTYPE']._serialized_start=1486
+  _globals['_FUNDTYPE']._serialized_end=1522
+  _globals['_GETFUNDTYPESRESPONSE']._serialized_start=1524
+  _globals['_GETFUNDTYPESRESPONSE']._serialized_end=1585
+  _globals['_VIGILIOSERVICE']._serialized_start=1588
+  _globals['_VIGILIOSERVICE']._serialized_end=2363
 # @@protoc_insertion_point(module_scope)

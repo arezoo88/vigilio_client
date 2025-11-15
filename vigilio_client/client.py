@@ -4,9 +4,13 @@ from .vigilio_pb2_grpc import VigilioServiceStub
 from .vigilio_pb2 import (
     ShareHolderSummaryRequest,
     ShareHolderDetailRequest,
-    GetReturnsRequest,
-    GetDividendsRequest,
-    GetNavsRequest
+    GetFundTypesRequest,
+    ShareHolderExcelRequest,
+    ShareHolderChartRequest,
+    ShareHolderAnalyzeRequest,
+    ShareHolderSummaryExcelRequest
+
+    
 )
 from django.conf import settings
 
@@ -32,16 +36,57 @@ class VigilioClient:
         self._stub = VigilioServiceStub(self._channel)
 
     # ---------------------------
-    # مثال متد gRPC
+    # FundTypes gRPC
     # ---------------------------
-    def get_shareholder_summary(self, date=None, fund_type=None, search=None):
-        req = ShareHolderSummaryRequest(date=date or "", fund_type=fund_type or "", search=search or "")
+    def get_fund_types(self):
+        req = GetFundTypesRequest()
+        return self._stub.GetFundTypes(req)
+
+    def get_fund_types_json(self):
+        resp = self.get_fund_types()
+        return MessageToDict(resp, preserving_proto_field_name=True).get("fund_types", [])
+
+
+    # ---------------------------
+    # ShareHolder Summary
+    # ---------------------------
+    def get_shareholder_summary(self, date=None, fund_type=None):
+        req = ShareHolderSummaryRequest(date=date or "", fund_type=fund_type or "")
         return self._stub.GetShareHolderSummary(req)
 
-    def get_shareholder_detail(self, shareholder_id, date=None, fund_type=None):
-        req = ShareHolderDetailRequest(
-            shareholder_id=str(shareholder_id),
-            date=date or "",
-            fund_type=fund_type or ""
-        )
+    def export_shareholder_summary_excel(self, date=None, fund_type=None):
+        req = ShareHolderSummaryExcelRequest(date=date or "", fund_type=fund_type or "")
+        return self._stub.ExportShareHolderSummaryExcel(req)
+
+    # ---------------------------
+    # ShareHolders
+    # ---------------------------
+    def list_shareholders(self, fund_type=None):
+        req = ShareHolderListRequest(fund_type=fund_type or "")
+        return self._stub.ListShareHolders(req)
+
+    def get_shareholder_detail(self, shareholder_id, fund=None):
+        req = ShareHolderDetailRequest(shareholder_id=shareholder_id, fund=fund or "")
         return self._stub.GetShareHolderDetail(req)
+
+    def export_shareholder_excel(self, shareholder_id):
+        req = ShareHolderExcelRequest(shareholder_id=shareholder_id)
+        return self._stub.ExportShareHolderExcel(req)
+
+    def get_shareholder_chart(self, shareholder_id, ticker, start_date, end_date):
+        req = ShareHolderChartRequest(
+            shareholder_id=shareholder_id,
+            ticker=ticker,
+            start_date=start_date,
+            end_date=end_date
+        )
+        return self._stub.GetShareHolderChartData(req)
+
+    def analyze_shareholder(self, ticker, start_date, end_date, export_excel=False):
+        req = ShareHolderAnalyzeRequest(
+            ticker=ticker,
+            start_date=start_date,
+            end_date=end_date,
+            export_excel=export_excel
+        )
+        return self._stub.AnalyzeShareHolder(req)
