@@ -68,48 +68,60 @@ class VigilioClient:
         req = ShareHolderListRequest(fund_type=fund_type or "")
         return self._stub.ListShareHolders(req)
 
-    def get_shareholder_detail(self, shareholder_id, fund=None):
+    def get_shareholder_detail(self, shareholder_id, fund=None , date=None):
         req = ShareHolderDetailRequest(shareholder_id=shareholder_id, fund=fund or "")
         return self._stub.GetShareHolderDetail(req)
 
-
-    def get_shareholder_detail_json(self, shareholder_id):
-        resp = self.get_shareholder_detail(shareholder_id)
-        result = {
-            "shareholder_name": resp.shareholder_name,
-            "share_holder_histories": [
-                {
+    def get_shareholder_detail_json(self, shareholder_id, fund=None):
+        """
+        Get shareholder detail - JSON format با error handling
+        """
+        try:
+            resp = self.get_shareholder_detail(shareholder_id, fund)
+            
+            result = {
+                "shareholder_name": resp.shareholder_name,
+                "share_holder_histories": []
+            }
+            for h in resp.share_holder_histories:
+                history_item = {
                     "fund_id": h.fund_id,
-                    "fund": h.fund,
-                    "fund_type": h.fund_type,
+                    "fund": h.fund_name,
+                    "fund_type":h.fund_type,
+                    "ticker": h.ticker,
                     "share_count": h.share_count,
                     "value": h.value,
-                    "pct_of_shares": h.pct_of_shares,
-                    "date": h.date
+                    "date": h.date,
                 }
-                for h in resp.share_holder_histories
-            ]
-        }
-        return result
+                
+        
+                if hasattr(h, 'pct_of_shares'):
+                    history_item["pct_of_shares"] = h.pct_of_shares
+                
+                if hasattr(h, 'percentage'):
+                    history_item["percentage"] = h.percentage
+                
+                result["share_holder_histories"].append(history_item)
+            
+            return result
+            
+        except grpc.RpcError as e:
+            # مدیریت خطاهای gRPC
+            raise Exception(f"gRPC Error [{e.code()}]: {e.details()}")
+        except Exception as e:
+            # مدیریت سایر خطاها
+            raise Exception(f"Error getting shareholder detail: {str(e)}")
 
     def export_shareholder_excel(self, shareholder_id):
         req = ShareHolderExcelRequest(shareholder_id=shareholder_id)
         return self._stub.ExportShareHolderExcel(req)
 
-    def get_shareholder_chart(self, shareholder_id, ticker, start_date, end_date):
+    def get_shareholder_chart(self, shareholder_id, fund=None, start_date=None, end_date=None):
         req = ShareHolderChartRequest(
             shareholder_id=shareholder_id,
-            ticker=ticker,
+            fund=fund,
             start_date=start_date,
             end_date=end_date
         )
         return self._stub.GetShareHolderChartData(req)
 
-    def analyze_shareholder(self, ticker, start_date, end_date, export_excel=False):
-        req = ShareHolderAnalyzeRequest(
-            ticker=ticker,
-            start_date=start_date,
-            end_date=end_date,
-            export_excel=export_excel
-        )
-        return self._stub.AnalyzeShareHolder(req)
