@@ -26,10 +26,7 @@ if _version_not_supported:
 
 
 class VigilioServiceStub(object):
-    """-----------------------------
-    Service definition
-    -----------------------------
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -37,60 +34,72 @@ class VigilioServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetDividends = channel.unary_unary(
-                '/vigilio.VigilioService/GetDividends',
-                request_serializer=vigilio__pb2.GetDividendsRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.GetDividendsResponse.FromString,
+        self.GetFundTypes = channel.unary_unary(
+                '/vigilio.VigilioService/GetFundTypes',
+                request_serializer=vigilio__pb2.GetFundTypesRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetFundTypesResponse.FromString,
                 _registered_method=True)
-        self.GetNavs = channel.unary_unary(
-                '/vigilio.VigilioService/GetNavs',
-                request_serializer=vigilio__pb2.GetNavsRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.GetNavsResponse.FromString,
+        self.ListShareHolders = channel.unary_unary(
+                '/vigilio.VigilioService/ListShareHolders',
+                request_serializer=vigilio__pb2.ShareHolderListRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ShareHolderListResponse.FromString,
                 _registered_method=True)
-        self.GetReturns = channel.unary_unary(
-                '/vigilio.VigilioService/GetReturns',
-                request_serializer=vigilio__pb2.GetReturnsRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.GetReturnsResponse.FromString,
+        self.ShareHoldersSummary = channel.unary_unary(
+                '/vigilio.VigilioService/ShareHoldersSummary',
+                request_serializer=vigilio__pb2.ShareHolderSummaryListRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ShareHolderSummaryListResponse.FromString,
                 _registered_method=True)
-        self.GetShareHolderSummary = channel.unary_unary(
-                '/vigilio.VigilioService/GetShareHolderSummary',
-                request_serializer=vigilio__pb2.ShareHolderSummaryRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.ShareHolderSummaryResponse.FromString,
+        self.GetShareHolderForDate = channel.unary_unary(
+                '/vigilio.VigilioService/GetShareHolderForDate',
+                request_serializer=vigilio__pb2.ShareHolderForDateRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ShareHolderForDateResponse.FromString,
+                _registered_method=True)
+        self.ExportShareHoldersSummaryExcel = channel.unary_unary(
+                '/vigilio.VigilioService/ExportShareHoldersSummaryExcel',
+                request_serializer=vigilio__pb2.ShareHolderSummaryExportRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ShareHolderSummaryExportResponse.FromString,
                 _registered_method=True)
         self.GetShareHolderDetail = channel.unary_unary(
                 '/vigilio.VigilioService/GetShareHolderDetail',
-                request_serializer=vigilio__pb2.ShareHolderDetailRequest.SerializeToString,
-                response_deserializer=vigilio__pb2.ShareHolderDetailResponse.FromString,
+                request_serializer=vigilio__pb2.GetShareHolderDetailRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetShareHolderDetailResponse.FromString,
+                _registered_method=True)
+        self.ExportShareHolderExcel = channel.unary_unary(
+                '/vigilio.VigilioService/ExportShareHolderExcel',
+                request_serializer=vigilio__pb2.ExportShareHolderExcelRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ExportShareHolderExcelResponse.FromString,
                 _registered_method=True)
 
 
 class VigilioServiceServicer(object):
-    """-----------------------------
-    Service definition
-    -----------------------------
-    """
+    """Missing associated documentation comment in .proto file."""
 
-    def GetDividends(self, request, context):
+    def GetFundTypes(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetNavs(self, request, context):
+    def ListShareHolders(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetReturns(self, request, context):
+    def ShareHoldersSummary(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetShareHolderSummary(self, request, context):
-        """Shareholder endpoints
-        """
+    def GetShareHolderForDate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExportShareHoldersSummaryExcel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -101,33 +110,49 @@ class VigilioServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ExportShareHolderExcel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VigilioServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetDividends': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetDividends,
-                    request_deserializer=vigilio__pb2.GetDividendsRequest.FromString,
-                    response_serializer=vigilio__pb2.GetDividendsResponse.SerializeToString,
+            'GetFundTypes': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFundTypes,
+                    request_deserializer=vigilio__pb2.GetFundTypesRequest.FromString,
+                    response_serializer=vigilio__pb2.GetFundTypesResponse.SerializeToString,
             ),
-            'GetNavs': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetNavs,
-                    request_deserializer=vigilio__pb2.GetNavsRequest.FromString,
-                    response_serializer=vigilio__pb2.GetNavsResponse.SerializeToString,
+            'ListShareHolders': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListShareHolders,
+                    request_deserializer=vigilio__pb2.ShareHolderListRequest.FromString,
+                    response_serializer=vigilio__pb2.ShareHolderListResponse.SerializeToString,
             ),
-            'GetReturns': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetReturns,
-                    request_deserializer=vigilio__pb2.GetReturnsRequest.FromString,
-                    response_serializer=vigilio__pb2.GetReturnsResponse.SerializeToString,
+            'ShareHoldersSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShareHoldersSummary,
+                    request_deserializer=vigilio__pb2.ShareHolderSummaryListRequest.FromString,
+                    response_serializer=vigilio__pb2.ShareHolderSummaryListResponse.SerializeToString,
             ),
-            'GetShareHolderSummary': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetShareHolderSummary,
-                    request_deserializer=vigilio__pb2.ShareHolderSummaryRequest.FromString,
-                    response_serializer=vigilio__pb2.ShareHolderSummaryResponse.SerializeToString,
+            'GetShareHolderForDate': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetShareHolderForDate,
+                    request_deserializer=vigilio__pb2.ShareHolderForDateRequest.FromString,
+                    response_serializer=vigilio__pb2.ShareHolderForDateResponse.SerializeToString,
+            ),
+            'ExportShareHoldersSummaryExcel': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExportShareHoldersSummaryExcel,
+                    request_deserializer=vigilio__pb2.ShareHolderSummaryExportRequest.FromString,
+                    response_serializer=vigilio__pb2.ShareHolderSummaryExportResponse.SerializeToString,
             ),
             'GetShareHolderDetail': grpc.unary_unary_rpc_method_handler(
                     servicer.GetShareHolderDetail,
-                    request_deserializer=vigilio__pb2.ShareHolderDetailRequest.FromString,
-                    response_serializer=vigilio__pb2.ShareHolderDetailResponse.SerializeToString,
+                    request_deserializer=vigilio__pb2.GetShareHolderDetailRequest.FromString,
+                    response_serializer=vigilio__pb2.GetShareHolderDetailResponse.SerializeToString,
+            ),
+            'ExportShareHolderExcel': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExportShareHolderExcel,
+                    request_deserializer=vigilio__pb2.ExportShareHolderExcelRequest.FromString,
+                    response_serializer=vigilio__pb2.ExportShareHolderExcelResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -138,13 +163,10 @@ def add_VigilioServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class VigilioService(object):
-    """-----------------------------
-    Service definition
-    -----------------------------
-    """
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetDividends(request,
+    def GetFundTypes(request,
             target,
             options=(),
             channel_credentials=None,
@@ -157,9 +179,9 @@ class VigilioService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/vigilio.VigilioService/GetDividends',
-            vigilio__pb2.GetDividendsRequest.SerializeToString,
-            vigilio__pb2.GetDividendsResponse.FromString,
+            '/vigilio.VigilioService/GetFundTypes',
+            vigilio__pb2.GetFundTypesRequest.SerializeToString,
+            vigilio__pb2.GetFundTypesResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -171,7 +193,7 @@ class VigilioService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetNavs(request,
+    def ListShareHolders(request,
             target,
             options=(),
             channel_credentials=None,
@@ -184,9 +206,9 @@ class VigilioService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/vigilio.VigilioService/GetNavs',
-            vigilio__pb2.GetNavsRequest.SerializeToString,
-            vigilio__pb2.GetNavsResponse.FromString,
+            '/vigilio.VigilioService/ListShareHolders',
+            vigilio__pb2.ShareHolderListRequest.SerializeToString,
+            vigilio__pb2.ShareHolderListResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -198,7 +220,7 @@ class VigilioService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetReturns(request,
+    def ShareHoldersSummary(request,
             target,
             options=(),
             channel_credentials=None,
@@ -211,9 +233,9 @@ class VigilioService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/vigilio.VigilioService/GetReturns',
-            vigilio__pb2.GetReturnsRequest.SerializeToString,
-            vigilio__pb2.GetReturnsResponse.FromString,
+            '/vigilio.VigilioService/ShareHoldersSummary',
+            vigilio__pb2.ShareHolderSummaryListRequest.SerializeToString,
+            vigilio__pb2.ShareHolderSummaryListResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -225,7 +247,7 @@ class VigilioService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetShareHolderSummary(request,
+    def GetShareHolderForDate(request,
             target,
             options=(),
             channel_credentials=None,
@@ -238,9 +260,36 @@ class VigilioService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/vigilio.VigilioService/GetShareHolderSummary',
-            vigilio__pb2.ShareHolderSummaryRequest.SerializeToString,
-            vigilio__pb2.ShareHolderSummaryResponse.FromString,
+            '/vigilio.VigilioService/GetShareHolderForDate',
+            vigilio__pb2.ShareHolderForDateRequest.SerializeToString,
+            vigilio__pb2.ShareHolderForDateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ExportShareHoldersSummaryExcel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/ExportShareHoldersSummaryExcel',
+            vigilio__pb2.ShareHolderSummaryExportRequest.SerializeToString,
+            vigilio__pb2.ShareHolderSummaryExportResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -266,8 +315,35 @@ class VigilioService(object):
             request,
             target,
             '/vigilio.VigilioService/GetShareHolderDetail',
-            vigilio__pb2.ShareHolderDetailRequest.SerializeToString,
-            vigilio__pb2.ShareHolderDetailResponse.FromString,
+            vigilio__pb2.GetShareHolderDetailRequest.SerializeToString,
+            vigilio__pb2.GetShareHolderDetailResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ExportShareHolderExcel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/ExportShareHolderExcel',
+            vigilio__pb2.ExportShareHolderExcelRequest.SerializeToString,
+            vigilio__pb2.ExportShareHolderExcelResponse.FromString,
             options,
             channel_credentials,
             insecure,
