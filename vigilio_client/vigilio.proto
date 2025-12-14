@@ -1,0 +1,392 @@
+syntax = "proto3";
+
+package vigilio;
+
+
+
+
+message ShareHolderSummaryListRequest {
+    optional string date = 1;
+    optional string fund_type = 2;
+    optional string search = 3;
+    optional string ordering = 4;
+}
+
+message ShareHolderSummaryItem {
+    int32 id = 1;
+    string name = 2;
+    int32 num_funds = 3;
+    double total_value = 5;
+}
+
+message ShareHolderSummaryListResponse {
+    repeated ShareHolderSummaryItem shareholders = 1;
+}
+
+
+message ShareHolderForDateRequest {
+    int32 shareholder_id = 1;
+    optional string date = 2;
+    optional string fund_type = 3;
+}
+
+message FundHistoryItem {
+    int32 fund_id = 1;
+    string fund = 2;
+    int64 share_count = 3;
+    double value = 4;
+    string date = 5;
+    string fund_type = 6;
+    double pct_of_shares = 7;
+}
+
+message ShareHolderForDateResponse {
+    int32 id = 1;
+    string shareholder_name = 2;
+    repeated FundHistoryItem share_holder_histories = 3;
+}
+
+// Export Excel
+message ShareHolderSummaryExportRequest {
+    string fund_type = 1;  // required
+    optional string date = 2;
+}
+
+message ShareHolderSummaryExportResponse {
+    bytes excel_data = 1;
+    string filename = 2;
+}
+
+message ShareHolderSummaryRequest {
+    string date = 1;       // optional
+    string fund_type = 2;  // optional
+}
+
+message ShareHolderSummaryResponse {
+    repeated ShareHolderSummary shareholders = 1;
+}
+
+message ShareHolderSummary {
+    int32 id = 1;
+    string name = 2;
+    int32 num_funds = 3;
+    double total_value = 4;
+}
+
+// For Excel export
+message ShareHolderSummaryExcelRequest {
+    string date = 1;
+    string fund_type = 2;
+}
+
+message ShareHolderSummaryExcelResponse {
+    bytes excel_file = 1;
+    string file_name = 2;
+}
+
+
+
+
+
+message ShareHolderByName {
+    int32 id = 1;
+    string name = 2;
+}
+
+message ShareHolderListRequest {
+    string fund_type = 1; // optional
+}
+
+message ShareHolderListResponse {
+    repeated ShareHolderByName shareholders = 1;
+}
+
+message ShareHolderFundHistory {
+    string fund_id = 1;
+    string fund = 2;
+    string fund_type = 3;
+    int64 share_count = 4;
+    double value = 5;
+    double pct_of_shares = 6;
+    string date = 7;
+}
+
+message ShareHolderDetailRequest {
+    int32 shareholder_id = 1;
+    optional string fund = 2;
+    optional string date = 3;
+}
+
+message ShareHolderDetailResponse {
+    string shareholder_name = 1;
+    repeated ShareHolderFundHistory share_holder_histories = 2;
+}
+
+message ShareHolderExcelRequest {
+    int32 shareholder_id = 1;
+}
+
+message ShareHolderExcelResponse {
+    bytes excel_file = 1;
+    string file_name = 2;
+}
+
+message ShareHolderChartRequest {
+    int32 shareholder_id = 1;
+    string fund = 2;
+    optional string start_date = 3;
+    optional string end_date = 4;
+}
+
+message ShareHolderChartResponse {
+    repeated ShareHolderFundHistory share_holder_histories = 1;
+    repeated ShareHolderFundChart chart_data = 2;
+}
+
+message ShareHolderFundChart {
+    repeated string dates = 1;
+    repeated int64 share_counts = 2;
+}
+
+// New messages for shareholders/{id}/?fund=... endpoints
+message GetShareHolderDetailRequest {
+    int32 shareholder_id = 1;
+    optional string fund = 2;  // fund ticker name (e.g., "ضمان")
+}
+
+message GetShareHolderDetailResponse {
+    string shareholder_name = 1;
+    repeated ShareHolderFundHistory share_holder_histories = 2;
+    repeated ShareHolderFundChart chart_data = 3;
+}
+
+message ExportShareHolderExcelRequest {
+    int32 shareholder_id = 1;
+    optional string fund = 2;  // fund ticker name
+}
+
+message ExportShareHolderExcelResponse {
+    bytes excel_file = 1;
+    string file_name = 2;
+}
+
+
+message GetFundTypesRequest {
+
+}
+
+message FundType {
+    int32 id = 1;
+    string name = 2;
+}
+
+message GetFundTypesResponse {
+    repeated FundType fund_types = 1;
+}
+
+// CashFlow messages
+message ListCashFlowsRequest {
+    string start_date = 1;  // required
+    string end_date = 2;    // required
+    optional string institute_kind = 3;
+}
+
+message CashFlowItem {
+    double cash_flow = 1;
+    double in_flow = 2;
+    double out_flow = 3;
+    double profits = 4;
+    string fund_name = 5;
+    string fund_type = 6;
+    int32 fund_id = 7;
+    string symbol = 8;
+    string institute_kind = 9;
+}
+
+message ListCashFlowsResponse {
+    repeated CashFlowItem cash_flows = 1;
+}
+
+message GetCashFlowDetailRequest {
+    int32 fund_id = 1;      // required (pk)
+    string start_date = 2;   // required
+    string end_date = 3;     // required
+    string fund_type = 4;    // required (ETF or CODAL)
+    optional string institute_kind = 5;
+}
+
+message CashFlowDetailItem {
+    double cash_flow = 1;
+    double in_flow = 2;
+    double out_flow = 3;
+    double total_units = 4;
+    double purchase = 5;
+    double redemption = 6;
+    double issued_units = 7;
+    double revoked_units = 8;
+    string fund_name = 9;
+    string fund_type = 10;
+    int32 fund_id = 11;
+    string symbol = 12;
+    string date = 13;
+}
+
+message GetCashFlowDetailResponse {
+    repeated CashFlowDetailItem cash_flows = 1;
+}
+
+// TotalReturn messages
+message ListTotalReturnsRequest {
+    optional string fund_type = 1;      // "Codal Fund" or "ETF Fund"
+    optional int32 fund_id = 2;
+    optional string institute_kind = 3;
+    optional string date = 4;           // Jalali date format
+}
+
+message TotalReturnItem {
+    int32 id = 1;
+    string date = 2;
+    int32 fund_id = 3;
+    string fund_name = 4;
+    string fund_type = 5;
+    string institute_kind = 6;
+    optional double last_nav = 7;
+    optional string last_nav_date = 8;
+    optional double last_price = 9;
+    optional string last_price_date = 10;
+    bool has_profit = 11;
+    bool has_split = 12;
+    optional double total_units = 13;
+    optional double bubble = 14;
+    optional double thirty = 15;
+    optional double ninety = 16;
+    optional double one_eighty = 17;
+    optional double three_sixty = 18;
+}
+
+message ListTotalReturnsResponse {
+    repeated TotalReturnItem returns = 1;
+}
+
+// EtfReturn messages
+message ListEtfReturnsRequest {
+    optional int32 fund_id = 1;
+    optional string institute_kind = 2;
+    optional string date = 3;           // Jalali date format
+}
+
+message EtfReturnItem {
+    int32 id = 1;
+    string date = 2;
+    int32 fund_id = 3;
+    string fund_name = 4;
+    string fund_type = 5;
+    string institute_kind = 6;
+    optional double last_nav = 7;
+    optional string last_nav_date = 8;
+    optional double last_price = 9;
+    optional string last_price_date = 10;
+    bool has_profit = 11;
+    bool has_split = 12;
+    optional double total_units = 13;
+    optional double bubble = 14;
+    optional double thirty = 15;
+    optional double ninety = 16;
+    optional double one_eighty = 17;
+    optional double three_sixty = 18;
+}
+
+message ListEtfReturnsResponse {
+    repeated EtfReturnItem returns = 1;
+}
+
+// WatchList messages
+message GetNavTrendRequest {
+    int32 fund_id = 1;  // required - LastFundNavAndDividendDate id
+}
+
+message NavDataItem {
+    optional double purchase = 1;
+    optional double redemption = 2;
+    optional double statistical = 3;
+    optional double preferred_purchase = 4;
+    optional double preferred_redemption = 5;
+    optional double common = 6;
+}
+
+message NavTrendItem {
+    double net_asset_value = 1;
+    string date = 2;
+    NavDataItem nav_data = 3;
+}
+
+message NavTrendChartData {
+    repeated string dates = 1;
+    repeated double statisticals = 2;
+    repeated double purchases = 3;
+    repeated double redemptions = 4;
+}
+
+message GetNavTrendResponse {
+    repeated NavTrendItem nav_trend = 1;
+    NavTrendChartData chart_data = 2;
+}
+
+message GetSplitsRequest {
+    int32 fund_id = 1;  // required - LastFundNavAndDividendDate id
+}
+
+message SplitItem {
+    string date = 1;
+    double units_ratio = 2;
+}
+
+message GetSplitsResponse {
+    repeated SplitItem splits = 1;
+}
+
+message GetProfitsRequest {
+    int32 fund_id = 1;  // required - LastFundNavAndDividendDate id
+}
+
+message ProfitItem {
+    double profit = 1;
+    string date = 2;
+}
+
+message GetProfitsResponse {
+    repeated ProfitItem profits = 1;
+}
+
+message GetPricesRequest {
+    int32 fund_id = 1;  // required - LastFundNavAndDividendDate id
+}
+
+message PriceItem {
+    string date = 1;
+    double price = 2;
+}
+
+message GetPricesResponse {
+    repeated PriceItem prices = 1;
+}
+
+
+service VigilioService {
+    rpc GetFundTypes(GetFundTypesRequest) returns (GetFundTypesResponse);
+    rpc ListShareHolders(ShareHolderListRequest) returns (ShareHolderListResponse);
+    rpc ShareHoldersSummary(ShareHolderSummaryListRequest) returns (ShareHolderSummaryListResponse);
+    rpc GetShareHolderForDate(ShareHolderForDateRequest) returns (ShareHolderForDateResponse);
+    rpc ExportShareHoldersSummaryExcel(ShareHolderSummaryExportRequest) returns (ShareHolderSummaryExportResponse);
+    rpc GetShareHolderDetail(GetShareHolderDetailRequest) returns (GetShareHolderDetailResponse);
+    rpc ExportShareHolderExcel(ExportShareHolderExcelRequest) returns (ExportShareHolderExcelResponse);
+    rpc ListCashFlows(ListCashFlowsRequest) returns (ListCashFlowsResponse);
+    rpc GetCashFlowDetail(GetCashFlowDetailRequest) returns (GetCashFlowDetailResponse);
+    rpc ListTotalReturns(ListTotalReturnsRequest) returns (ListTotalReturnsResponse);
+    rpc ListEtfReturns(ListEtfReturnsRequest) returns (ListEtfReturnsResponse);
+    rpc GetNavTrend(GetNavTrendRequest) returns (GetNavTrendResponse);
+    rpc GetSplits(GetSplitsRequest) returns (GetSplitsResponse);
+    rpc GetProfits(GetProfitsRequest) returns (GetProfitsResponse);
+    rpc GetPrices(GetPricesRequest) returns (GetPricesResponse);
+}
+

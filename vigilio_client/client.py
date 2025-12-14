@@ -69,9 +69,6 @@ class VigilioClient:
         if self.channel:
             self.channel.close()
 
-    # ========================================================================
-    # Fund Types Methods
-    # ========================================================================
 
     def get_fund_types(self) -> List[Dict[str, Any]]:
         """
@@ -89,9 +86,6 @@ class VigilioClient:
             for ft in response.fund_types
         ]
 
-    # ========================================================================
-    # ShareHolder List Methods
-    # ========================================================================
 
     def list_shareholders(self, fund_type: Optional[str] = None) -> List[Dict[str, Any]]:
         """
@@ -113,10 +107,6 @@ class VigilioClient:
             {'id': sh.id, 'name': sh.name}
             for sh in response.shareholders
         ]
-
-    # ========================================================================
-    # ShareHolder Summary Methods
-    # ========================================================================
 
     def get_shareholders_summary(self, date: Optional[str] = None,
                                  fund_type: Optional[str] = None,
@@ -208,9 +198,6 @@ class VigilioClient:
 
         return output_path
 
-    # ========================================================================
-    # ShareHolder Detail Methods (for specific date)
-    # ========================================================================
 
     def get_shareholder_for_date(self, shareholder_id: int,
                                  date: Optional[str] = None,
@@ -250,9 +237,6 @@ class VigilioClient:
             ]
         }
 
-    # ========================================================================
-    # ShareHolder Detail Methods (with fund filter and chart data)
-    # ========================================================================
 
     def get_shareholder_detail(self, shareholder_id: int,
                                fund: Optional[str] = None) -> Dict[str, Any]:
@@ -373,9 +357,287 @@ class VigilioClient:
 
         return df
 
-    # ========================================================================
-    # Utility Methods
-    # ========================================================================
+
+    def list_cash_flows(self, start_date: str, end_date: str,
+                        institute_kind: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get cash flow summary for multiple funds
+
+        Args:
+            start_date: Start date (required)
+            end_date: End date (required)
+            institute_kind: Optional institute kind to filter by
+
+        Returns:
+            List of cash flows with aggregated data
+        """
+        request = vigilio_pb2.ListCashFlowsRequest(
+            start_date=start_date,
+            end_date=end_date,
+            institute_kind=institute_kind if institute_kind else ""
+        )
+        response = self.stub.ListCashFlows(request)
+
+        return [
+            {
+                'cash_flow': cf.cash_flow,
+                'in_flow': cf.in_flow,
+                'out_flow': cf.out_flow,
+                'profits': cf.profits,
+                'fund_name': cf.fund_name,
+                'fund_type': cf.fund_type,
+                'fund_id': cf.fund_id,
+                'symbol': cf.symbol,
+                'institute_kind': cf.institute_kind
+            }
+            for cf in response.cash_flows
+        ]
+
+    def get_cash_flow_detail(self, fund_id: int, start_date: str, end_date: str,
+                             fund_type: str, institute_kind: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get detailed cash flow for a specific fund
+
+        Args:
+            fund_id: Fund ID (required)
+            start_date: Start date (required)
+            end_date: End date (required)
+            fund_type: Fund type - "ETF" or "CODAL" (required)
+            institute_kind: Optional institute kind to filter by
+
+        Returns:
+            List of detailed cash flows by date
+        """
+        request = vigilio_pb2.GetCashFlowDetailRequest(
+            fund_id=fund_id,
+            start_date=start_date,
+            end_date=end_date,
+            fund_type=fund_type,
+            institute_kind=institute_kind if institute_kind else ""
+        )
+        response = self.stub.GetCashFlowDetail(request)
+
+        return [
+            {
+                'cash_flow': cf.cash_flow,
+                'in_flow': cf.in_flow,
+                'out_flow': cf.out_flow,
+                'total_units': cf.total_units,
+                'purchase': cf.purchase,
+                'redemption': cf.redemption,
+                'issued_units': cf.issued_units,
+                'revoked_units': cf.revoked_units,
+                'fund_name': cf.fund_name,
+                'fund_type': cf.fund_type,
+                'fund_id': cf.fund_id,
+                'symbol': cf.symbol,
+                'date': cf.date
+            }
+            for cf in response.cash_flows
+        ]
+
+    def list_total_returns(self, fund_type: Optional[str] = None,
+                          fund_id: Optional[int] = None,
+                          institute_kind: Optional[str] = None,
+                          date: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get total returns for all funds
+
+        Args:
+            fund_type: Optional fund type - "Codal Fund" or "ETF Fund"
+            fund_id: Optional fund ID to filter by
+            institute_kind: Optional institute kind to filter by
+            date: Optional date in Jalali format
+
+        Returns:
+            List of total returns with NAV, price, and return data
+        """
+        request = vigilio_pb2.ListTotalReturnsRequest(
+            fund_type=fund_type if fund_type else "",
+            fund_id=fund_id if fund_id else 0,
+            institute_kind=institute_kind if institute_kind else "",
+            date=date if date else ""
+        )
+        response = self.stub.ListTotalReturns(request)
+
+        return [
+            {
+                'id': ret.id,
+                'date': ret.date,
+                'fund_id': ret.fund_id,
+                'fund_name': ret.fund_name,
+                'fund_type': ret.fund_type,
+                'institute_kind': ret.institute_kind,
+                'last_nav': ret.last_nav,
+                'last_nav_date': ret.last_nav_date,
+                'last_price': ret.last_price,
+                'last_price_date': ret.last_price_date,
+                'has_profit': ret.has_profit,
+                'has_split': ret.has_split,
+                'total_units': ret.total_units,
+                'bubble': ret.bubble,
+                'thirty': ret.thirty,
+                'ninety': ret.ninety,
+                'one_eighty': ret.one_eighty,
+                'three_sixty': ret.three_sixty
+            }
+            for ret in response.returns
+        ]
+
+    def list_etf_returns(self, fund_id: Optional[int] = None,
+                        institute_kind: Optional[str] = None,
+                        date: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get ETF returns
+
+        Args:
+            fund_id: Optional fund ID to filter by
+            institute_kind: Optional institute kind to filter by
+            date: Optional date in Jalali format
+
+        Returns:
+            List of ETF returns with NAV, price, and return data
+        """
+        request = vigilio_pb2.ListEtfReturnsRequest(
+            fund_id=fund_id if fund_id else 0,
+            institute_kind=institute_kind if institute_kind else "",
+            date=date if date else ""
+        )
+        response = self.stub.ListEtfReturns(request)
+
+        return [
+            {
+                'id': ret.id,
+                'date': ret.date,
+                'fund_id': ret.fund_id,
+                'fund_name': ret.fund_name,
+                'fund_type': ret.fund_type,
+                'institute_kind': ret.institute_kind,
+                'last_nav': ret.last_nav,
+                'last_nav_date': ret.last_nav_date,
+                'last_price': ret.last_price,
+                'last_price_date': ret.last_price_date,
+                'has_profit': ret.has_profit,
+                'has_split': ret.has_split,
+                'total_units': ret.total_units,
+                'bubble': ret.bubble,
+                'thirty': ret.thirty,
+                'ninety': ret.ninety,
+                'one_eighty': ret.one_eighty,
+                'three_sixty': ret.three_sixty
+            }
+            for ret in response.returns
+        ]
+
+    def get_nav_trend(self, fund_id: int) -> Dict[str, Any]:
+        """
+        Get NAV trend data for a specific fund
+
+        Args:
+            fund_id: Fund ID (LastFundNavAndDividendDate id)
+
+        Returns:
+            NAV trend data with chart data
+            Example: {
+                'nav_trend': [...],
+                'chart_data': {
+                    'dates': [...],
+                    'statisticals': [...],
+                    'purchases': [...],
+                    'redemptions': [...]
+                }
+            }
+        """
+        request = vigilio_pb2.GetNavTrendRequest(fund_id=fund_id)
+        response = self.stub.GetNavTrend(request)
+
+        return {
+            'nav_trend': [
+                {
+                    'net_asset_value': item.net_asset_value,
+                    'date': item.date,
+                    'nav_data': {
+                        'purchase': item.nav_data.purchase if item.nav_data.HasField('purchase') else None,
+                        'redemption': item.nav_data.redemption if item.nav_data.HasField('redemption') else None,
+                        'statistical': item.nav_data.statistical if item.nav_data.HasField('statistical') else None,
+                        'preferred_purchase': item.nav_data.preferred_purchase if item.nav_data.HasField('preferred_purchase') else None,
+                        'preferred_redemption': item.nav_data.preferred_redemption if item.nav_data.HasField('preferred_redemption') else None,
+                        'common': item.nav_data.common if item.nav_data.HasField('common') else None
+                    }
+                }
+                for item in response.nav_trend
+            ],
+            'chart_data': {
+                'dates': list(response.chart_data.dates),
+                'statisticals': list(response.chart_data.statisticals),
+                'purchases': list(response.chart_data.purchases),
+                'redemptions': list(response.chart_data.redemptions)
+            }
+        }
+
+    def get_splits(self, fund_id: int) -> List[Dict[str, Any]]:
+        """
+        Get fund splits for a specific fund
+
+        Args:
+            fund_id: Fund ID (LastFundNavAndDividendDate id)
+
+        Returns:
+            List of fund splits
+        """
+        request = vigilio_pb2.GetSplitsRequest(fund_id=fund_id)
+        response = self.stub.GetSplits(request)
+
+        return [
+            {
+                'date': split.date,
+                'units_ratio': split.units_ratio
+            }
+            for split in response.splits
+        ]
+
+    def get_profits(self, fund_id: int) -> List[Dict[str, Any]]:
+        """
+        Get fund profits/dividends for a specific fund
+
+        Args:
+            fund_id: Fund ID (LastFundNavAndDividendDate id)
+
+        Returns:
+            List of fund profits
+        """
+        request = vigilio_pb2.GetProfitsRequest(fund_id=fund_id)
+        response = self.stub.GetProfits(request)
+
+        return [
+            {
+                'profit': profit.profit,
+                'date': profit.date
+            }
+            for profit in response.profits
+        ]
+
+    def get_prices(self, fund_id: int) -> List[Dict[str, Any]]:
+        """
+        Get ETF close prices for a specific fund
+
+        Args:
+            fund_id: Fund ID (LastFundNavAndDividendDate id)
+
+        Returns:
+            List of ETF close prices
+        """
+        request = vigilio_pb2.GetPricesRequest(fund_id=fund_id)
+        response = self.stub.GetPrices(request)
+
+        return [
+            {
+                'date': price.date,
+                'price': price.price
+            }
+            for price in response.prices
+        ]
+
 
     def ping(self) -> bool:
         """
@@ -393,10 +655,6 @@ class VigilioClient:
     def __repr__(self):
         return f"VigilioClient(host='{self.host}', secure={self.secure})"
 
-
-# ============================================================================
-# Example Usage
-# ============================================================================
 
 def example_usage():
     """Example usage of VigilioClient"""

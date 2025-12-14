@@ -69,6 +69,46 @@ class VigilioServiceStub(object):
                 request_serializer=vigilio__pb2.ExportShareHolderExcelRequest.SerializeToString,
                 response_deserializer=vigilio__pb2.ExportShareHolderExcelResponse.FromString,
                 _registered_method=True)
+        self.ListCashFlows = channel.unary_unary(
+                '/vigilio.VigilioService/ListCashFlows',
+                request_serializer=vigilio__pb2.ListCashFlowsRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ListCashFlowsResponse.FromString,
+                _registered_method=True)
+        self.GetCashFlowDetail = channel.unary_unary(
+                '/vigilio.VigilioService/GetCashFlowDetail',
+                request_serializer=vigilio__pb2.GetCashFlowDetailRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetCashFlowDetailResponse.FromString,
+                _registered_method=True)
+        self.ListTotalReturns = channel.unary_unary(
+                '/vigilio.VigilioService/ListTotalReturns',
+                request_serializer=vigilio__pb2.ListTotalReturnsRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ListTotalReturnsResponse.FromString,
+                _registered_method=True)
+        self.ListEtfReturns = channel.unary_unary(
+                '/vigilio.VigilioService/ListEtfReturns',
+                request_serializer=vigilio__pb2.ListEtfReturnsRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.ListEtfReturnsResponse.FromString,
+                _registered_method=True)
+        self.GetNavTrend = channel.unary_unary(
+                '/vigilio.VigilioService/GetNavTrend',
+                request_serializer=vigilio__pb2.GetNavTrendRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetNavTrendResponse.FromString,
+                _registered_method=True)
+        self.GetSplits = channel.unary_unary(
+                '/vigilio.VigilioService/GetSplits',
+                request_serializer=vigilio__pb2.GetSplitsRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetSplitsResponse.FromString,
+                _registered_method=True)
+        self.GetProfits = channel.unary_unary(
+                '/vigilio.VigilioService/GetProfits',
+                request_serializer=vigilio__pb2.GetProfitsRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetProfitsResponse.FromString,
+                _registered_method=True)
+        self.GetPrices = channel.unary_unary(
+                '/vigilio.VigilioService/GetPrices',
+                request_serializer=vigilio__pb2.GetPricesRequest.SerializeToString,
+                response_deserializer=vigilio__pb2.GetPricesResponse.FromString,
+                _registered_method=True)
 
 
 class VigilioServiceServicer(object):
@@ -116,6 +156,54 @@ class VigilioServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListCashFlows(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCashFlowDetail(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListTotalReturns(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListEtfReturns(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetNavTrend(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSplits(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetProfits(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPrices(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VigilioServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -153,6 +241,46 @@ def add_VigilioServiceServicer_to_server(servicer, server):
                     servicer.ExportShareHolderExcel,
                     request_deserializer=vigilio__pb2.ExportShareHolderExcelRequest.FromString,
                     response_serializer=vigilio__pb2.ExportShareHolderExcelResponse.SerializeToString,
+            ),
+            'ListCashFlows': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCashFlows,
+                    request_deserializer=vigilio__pb2.ListCashFlowsRequest.FromString,
+                    response_serializer=vigilio__pb2.ListCashFlowsResponse.SerializeToString,
+            ),
+            'GetCashFlowDetail': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCashFlowDetail,
+                    request_deserializer=vigilio__pb2.GetCashFlowDetailRequest.FromString,
+                    response_serializer=vigilio__pb2.GetCashFlowDetailResponse.SerializeToString,
+            ),
+            'ListTotalReturns': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListTotalReturns,
+                    request_deserializer=vigilio__pb2.ListTotalReturnsRequest.FromString,
+                    response_serializer=vigilio__pb2.ListTotalReturnsResponse.SerializeToString,
+            ),
+            'ListEtfReturns': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListEtfReturns,
+                    request_deserializer=vigilio__pb2.ListEtfReturnsRequest.FromString,
+                    response_serializer=vigilio__pb2.ListEtfReturnsResponse.SerializeToString,
+            ),
+            'GetNavTrend': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetNavTrend,
+                    request_deserializer=vigilio__pb2.GetNavTrendRequest.FromString,
+                    response_serializer=vigilio__pb2.GetNavTrendResponse.SerializeToString,
+            ),
+            'GetSplits': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSplits,
+                    request_deserializer=vigilio__pb2.GetSplitsRequest.FromString,
+                    response_serializer=vigilio__pb2.GetSplitsResponse.SerializeToString,
+            ),
+            'GetProfits': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProfits,
+                    request_deserializer=vigilio__pb2.GetProfitsRequest.FromString,
+                    response_serializer=vigilio__pb2.GetProfitsResponse.SerializeToString,
+            ),
+            'GetPrices': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPrices,
+                    request_deserializer=vigilio__pb2.GetPricesRequest.FromString,
+                    response_serializer=vigilio__pb2.GetPricesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -344,6 +472,222 @@ class VigilioService(object):
             '/vigilio.VigilioService/ExportShareHolderExcel',
             vigilio__pb2.ExportShareHolderExcelRequest.SerializeToString,
             vigilio__pb2.ExportShareHolderExcelResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListCashFlows(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/ListCashFlows',
+            vigilio__pb2.ListCashFlowsRequest.SerializeToString,
+            vigilio__pb2.ListCashFlowsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCashFlowDetail(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/GetCashFlowDetail',
+            vigilio__pb2.GetCashFlowDetailRequest.SerializeToString,
+            vigilio__pb2.GetCashFlowDetailResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListTotalReturns(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/ListTotalReturns',
+            vigilio__pb2.ListTotalReturnsRequest.SerializeToString,
+            vigilio__pb2.ListTotalReturnsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListEtfReturns(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/ListEtfReturns',
+            vigilio__pb2.ListEtfReturnsRequest.SerializeToString,
+            vigilio__pb2.ListEtfReturnsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetNavTrend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/GetNavTrend',
+            vigilio__pb2.GetNavTrendRequest.SerializeToString,
+            vigilio__pb2.GetNavTrendResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSplits(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/GetSplits',
+            vigilio__pb2.GetSplitsRequest.SerializeToString,
+            vigilio__pb2.GetSplitsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetProfits(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/GetProfits',
+            vigilio__pb2.GetProfitsRequest.SerializeToString,
+            vigilio__pb2.GetProfitsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetPrices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/vigilio.VigilioService/GetPrices',
+            vigilio__pb2.GetPricesRequest.SerializeToString,
+            vigilio__pb2.GetPricesResponse.FromString,
             options,
             channel_credentials,
             insecure,
