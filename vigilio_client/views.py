@@ -268,6 +268,9 @@ class CashFlowViewSet(generics.ListAPIView ,generics.RetrieveAPIView ,viewsets.G
     http_method_names = ['get']
     permission_classes = (permissions.IsAuthenticated,)
 
+    def get_queryset(self):
+        return None
+
     def list(self, request):
         """
         List cash flows summary for all funds
@@ -304,7 +307,7 @@ class CashFlowViewSet(generics.ListAPIView ,generics.RetrieveAPIView ,viewsets.G
             )
 
     @action(detail=True, methods=['get'])
-    def detail(self, request, pk=None):
+    def retrieve(self, request, pk=None):
         """
         Get detailed cash flow for a specific fund
         Query params: start_date (required), end_date (required), fund_type (required), institute_kind (optional)
