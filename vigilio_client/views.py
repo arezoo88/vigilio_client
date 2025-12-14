@@ -489,7 +489,7 @@ class FundDetailViewSet(viewsets.GenericViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    @action(detail=FALSE, methods=['get'])
+    @action(detail=False, methods=['get'])
     def profits(self, request):
         """
         Get fund profits/dividends for a specific fund
@@ -516,14 +516,20 @@ class FundDetailViewSet(viewsets.GenericViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    @action(detail=True, methods=['get'])
-    def prices(self, request, pk=None):
+    @action(detail=False, methods=['get'])
+    def prices(self, request):
         """
         Get ETF close prices for a specific fund
         """
+        fund_id = request.query_params.get('fund_id', None)
+        if not fund_id:
+            Response(
+                {'error': 'fund_id query parameters are required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         try:
             with get_grpc_client() as client:
-                prices = client.get_prices(fund_id=int(pk))
+                prices = client.get_prices(fund_id=int(fund_id))
                 serializer = PriceSerializer(prices, many=True)
                 return Response(serializer.data)
         except grpc.RpcError as e:
