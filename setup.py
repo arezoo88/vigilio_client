@@ -7,7 +7,7 @@ long_description = readme_file.read_text(encoding="utf-8") if readme_file.exists
 
 setup(
     name="vigilio_client",
-    version="1.0.4",
+    version="1.0.5",
     description="gRPC client and Django REST API for Vigilio shareholder service",
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -269,7 +269,7 @@ class CashFlowViewSet(generics.ListAPIView ,generics.RetrieveAPIView ,viewsets.G
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return None
+        return []
 
     def list(self, request):
         """
@@ -306,7 +306,6 @@ class CashFlowViewSet(generics.ListAPIView ,generics.RetrieveAPIView ,viewsets.G
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    @action(detail=True, methods=['get'])
     def retrieve(self, request, pk=None):
         """
         Get detailed cash flow for a specific fund
